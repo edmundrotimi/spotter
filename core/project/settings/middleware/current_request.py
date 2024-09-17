@@ -10,7 +10,7 @@ class RequestMiddleware(MiddlewareMixin):
     Provides storage for the "current" request object, so that code anywhere
     in the project can access it, without it having to be passed to that code
     from the view request.
-    
+
     """
     _requests: dict = {}
 
