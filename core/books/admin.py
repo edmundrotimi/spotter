@@ -8,7 +8,7 @@ class AuthorAdmin(ModelAdmin):
     list_display = ['id', 'name', 'gender', 'ratings_count', 'average_rating', 'text_reviews_count']
     list_display_links = ['id', 'ratings_count', 'average_rating', 'text_reviews_count']
     search_fields = ['id', 'name']
-    list_per_page = 10
+    list_per_page = 100
     show_full_result_count = True
     actions_on_top = True
     actions_on_bottom = True
@@ -70,21 +70,21 @@ class BookAdmin(ModelAdmin):
             'Book Description',
             {
                 'classes': ['wide', 'extrapretty'],
-                'fields': ['num_pages', 'language', 'image_url', 'shelves', 'description'],
+                'fields': ['num_pages', 'language', 'image_url', 'description'],
             },
         ],
         [
             'Author and Co-Author',
             {
                 'classes': ['collapse', 'wide', 'extrapretty'],
-                'fields': ['authors'],
+                'fields': ['author_id'],
             },
         ],
         [
             'Works',
             {
                 'classes': ['collapse', 'wide', 'extrapretty'],
-                'fields': ['work_ids'],
+                'fields': ['work_id'],
             },
         ],
         [
