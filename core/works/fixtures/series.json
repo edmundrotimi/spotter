@@ -1,0 +1,221 @@
+[
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40323",
+      "title": "Dragonriders of Pern",
+      "description": "Also known as:\n    * Drakenrijders van Pern\n    * Cavaleiros de Pern\n    * Zmajevi jaha\u010di Perna\n    * Drakeni z Pernu\n    \n    This series is for the original Pern Trilogy. Note that both in publication and chronological order the first two books of the <a href=\"http://www.goodreads.com/series/43987-pern-harper-hall\">Harper Hall Trilogy</a> come before The White Dragon.\n    \n    For the full series see:\n    <a href=\"http://www.goodreads.com/series/50060-pern-published-order\">Pern (Publication Order)</a>\n    <a href=\"http://www.goodreads.com/series/49339-pern-chronological-order\">Pern (Chronological Order)</a>\n    \n    Also consider that reader Trike says \"Dragonflight by Anne McCaffrey is a standalone. (It's actually a fix-up novel comprised of her two Pern novellas with additional material added.) The sequels were added later. Numbers 2 and 3, Dragonquest and The White Dragon were written later. A decade later in the case of the latter. The White Dragon can be read as a standalone. (But it's better as the third in the series.)\"",
+      "note": null,
+      "series_works_count": "4",
+      "primary_work_count": "3",
+      "numbered": "true",
+      "works": ["2467422", "2000164", "2886933", "6614581"]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40325",
+      "title": "Heritage of Shannara",
+      "description": "These books continue the larger <a href=http://www.goodreads.com/series/43574-shannara>Shannara</a> series after <a href=http://www.goodreads.com/series/49525-the-original-shannara-trilogy>The Original Shannara Trilogy</a>.\n    \n    To continue the series past this point, see <a href=http://www.goodreads.com/series/42961-voyage-of-the-jerle-shannara>The Voyage of the Jerle Shannara</a>. \n    \n    Series also known as:\n    *<i>Gli eredi di Shannara</i>",
+      "note": null,
+      "series_works_count": "16",
+      "primary_work_count": "4",
+      "numbered": "true",
+      "works": [
+        "19017827",
+        "34897",
+        "764",
+        "201738",
+        "34929",
+        "69174298",
+        "34886",
+        "6524089",
+        "6524067",
+        "6524088",
+        "41402247",
+        "6524097",
+        "6524113",
+        "6524104",
+        "6266520",
+        "6524134"
+      ]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40326",
+      "title": "Dragonlance: Legends",
+      "description": null,
+      "note": null,
+      "series_works_count": "6",
+      "primary_work_count": "3",
+      "numbered": "true",
+      "works": ["852", "857019", "1568418", "3384544", "853", "89574"]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40328",
+      "title": "Dragonlance: The War of Souls",
+      "description": "The War of Souls is a war set in the popular Dragonlance fictional universe. <i>The War of Souls</i> series follows the heroes of The War of the Lance to fill in many details of the Dungeons & Dragons fantasy role-playing game storyline. Like many Dragonlance stories, the series can be read as stand alone stories or in series order. [Wikipedia]",
+      "note": null,
+      "series_works_count": "4",
+      "primary_work_count": "4",
+      "numbered": "true",
+      "works": ["856", "1219151", "906736", "29048"]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40330",
+      "title": "Dragonlance: The Lost Chronicles",
+      "description": null,
+      "note": null,
+      "series_works_count": "3",
+      "primary_work_count": "3",
+      "numbered": "true",
+      "works": ["860", "681885", "2034374"]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40331",
+      "title": "Starshield",
+      "description": null,
+      "note": null,
+      "series_works_count": "2",
+      "primary_work_count": "2",
+      "numbered": "true",
+      "works": ["3098570", "862"]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40332",
+      "title": "Book of Ember",
+      "description": "A kids' and young adult, science-fiction series. \n    \n    Although [book:The Prophet of Yonwood|207034] takes place before [book:The City of Ember|307791], it was published as book 3.",
+      "note": "This order is listed in publication order, NOT chronological order.",
+      "series_works_count": "7",
+      "primary_work_count": "4",
+      "numbered": "true",
+      "works": [
+        "2285229",
+        "2529035",
+        "969",
+        "2501288",
+        "4582550",
+        "41119290",
+        "18713226"
+      ]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40333",
+      "title": "Aubrey & Maturin",
+      "description": "Patrick O'Brian's beloved series of 19th-century British naval fiction.",
+      "note": null,
+      "series_works_count": "21",
+      "primary_work_count": "21",
+      "numbered": "true",
+      "works": [
+        "722040",
+        "1200321",
+        "1200332",
+        "2393986",
+        "2366490",
+        "1527549",
+        "5277606",
+        "3575252",
+        "2021464",
+        "19475",
+        "1052",
+        "561940",
+        "1089092",
+        "329317",
+        "2773925",
+        "388063",
+        "3575140",
+        "216150",
+        "1384120",
+        "3715392",
+        "1420704"
+      ]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40334",
+      "title": "Vlad Taltos",
+      "description": "Steven Brust's fantasy series follows Vlad Taltos: a short-statured, short-lived human in an Empire of tall, long-lived Dragaerans.\n    \n    http://us.macmillan.com/series/vlad\n    \n    This is one series set in Steven Brust's <a href=http://www.goodreads.com/series/49760-draegara>Draegaran world.</a>\n    \n    Of the ordering, the author notes:<blockquote>One of the questions I'm most often asked is: \"In what order would you recommend reading these books?\" Unfortunately, I'm just exactly the wrong guy to ask. I made every effort to write them so that they could be read in any order. I am aware that, in some measure at least, I have failed (I certainly wouldn't recommend starting with <i>Teckla</i>, for example), but the fact that I was trying makes me incapable of giving an answer.\n    \n    Many people whose opinion I respect believe publication order is best . . . The choice, I daresay, is yours. In any case, I hope you enjoy them.\n    \n    --Steven Brust, 1999, in the notes for <i>The Book of Jhereg</i></blockquote>The books are numbered in publication order;  here is a rough guide to chronological order:\n    \n        Taltos (1988)\n        Dragon (1998)\n        Yendi (1984)\n        Tiassa, section 1 (2011)\n        Jhereg (1983)\n        Teckla (1987)\n        Phoenix (1990)\n        Jhegaala (2008)\n        Athyra (1993)\n        Orca (1996)\n        Issola (2001)\n        Dzur (2006)\n        Tiassa, section 2 (2011)\n        Iorich (2010)\n        Tiassa, section 3 (2011)\n    \n    http://en.wikipedia.org/wiki/Steven_Brust\n    \n    http://us.macmillan.com/series/Vlad",
+      "note": null,
+      "series_works_count": "27",
+      "primary_work_count": "15",
+      "numbered": "true",
+      "works": [
+        "1521838",
+        "1058",
+        "803245",
+        "2056682",
+        "1817640",
+        "1817638",
+        "128568",
+        "842164",
+        "1059",
+        "1915001",
+        "2261682",
+        "6874180",
+        "13578278",
+        "23893044",
+        "54280295",
+        "3066290",
+        "48207",
+        "5231688",
+        "6314063",
+        "40716408",
+        "135106",
+        "15964133",
+        "40716450",
+        "135109",
+        "15574516",
+        "59006456",
+        "135105"
+      ]
+    }
+  },
+  {
+    "model": "works.series",
+    "fields": {
+      "id": "40336",
+      "title": "Pellucidar",
+      "description": "The original series has 7 novels. In 1976, Mahars of Pellucidar was authorized by the Burroughs estate and published as a sequel to the novels.",
+      "note": null,
+      "series_works_count": "13",
+      "primary_work_count": "6",
+      "numbered": "true",
+      "works": [
+        "1418",
+        "1665500",
+        "965411",
+        "1774033",
+        "2383517",
+        "3228763",
+        "634518",
+        "576676",
+        "2359047",
+        "683554",
+        "965410",
+        "6418003",
+        "5675198"
+      ]
+    }
+  }
+]
