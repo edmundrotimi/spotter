@@ -22,12 +22,39 @@ DEFENDER_GET_USERNAME_FROM_REQUEST_PATH = ENV.config('DEFENDER_GET_USERNAME_FROM
 
 # CSP Settings
 CSP_DEFAULT_SRC = ("'none'",)
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_CONNECT_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'",)
-CSP_STYLE_SRC_ELEM = ("'self'",)
-CSP_IMG_SRC = ("'self'",)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    'https://www.google.com',
+    'https://googleapis.com',
+    'https://www.googletagmanager.com',
+    'https://www.gstatic.com',
+    'https://fonts.googleapis.com',
+    'https://use.fontawesome.com',
+    'https://ajax.googleapis.com',
+    'https://foodtrolley.blr1.digitaloceanspaces.com',
+    "'unsafe-inline'",
+    'blob:',
+)
+CSP_CONNECT_SRC = ("'self'")
+CSP_FONT_SRC = (
+    "'self'",
+    'https://fonts.gstatic.com',
+    'https://fonts.googleapis.com',
+    'https://use.fontawesome.com',
+)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+CSP_STYLE_SRC_ELEM = (
+    "'self'",
+    'https://fonts.gstatic.com',
+    'https://fonts.googleapis.com',
+    'https://use.fontawesome.com',
+    'https://foodtrolley.blr1.digitaloceanspaces.com',
+    "'unsafe-inline'",
+)
+
+CSP_IMG_SRC = (
+    "'self'", 'https://validator.swagger.io/', 'https://foodtrolley.blr1.digitaloceanspaces.com', 'blob:', 'data:'
+)
 CSP_MEDIA_SRC = ("'self'",)
 CSP_FORM_ACTION = ("'self'")  # Allow form submissions to URLs from the same origin
 CSP_BASE_URI = ("'none'",)  # Disallow base URLs from the same origin
