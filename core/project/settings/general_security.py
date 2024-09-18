@@ -31,7 +31,6 @@ CSP_SCRIPT_SRC = (
     'https://fonts.googleapis.com',
     'https://use.fontawesome.com',
     'https://ajax.googleapis.com',
-    'https://foodtrolley.blr1.digitaloceanspaces.com',
     "'unsafe-inline'",
     'blob:',
 )
@@ -48,13 +47,10 @@ CSP_STYLE_SRC_ELEM = (
     'https://fonts.gstatic.com',
     'https://fonts.googleapis.com',
     'https://use.fontawesome.com',
-    'https://foodtrolley.blr1.digitaloceanspaces.com',
     "'unsafe-inline'",
 )
 
-CSP_IMG_SRC = (
-    "'self'", 'https://validator.swagger.io/', 'https://foodtrolley.blr1.digitaloceanspaces.com', 'blob:', 'data:'
-)
+CSP_IMG_SRC = ("'self'", 'https://validator.swagger.io/', 'blob:', 'data:')
 CSP_MEDIA_SRC = ("'self'",)
 CSP_FORM_ACTION = ("'self'")  # Allow form submissions to URLs from the same origin
 CSP_BASE_URI = ("'none'",)  # Disallow base URLs from the same origin
