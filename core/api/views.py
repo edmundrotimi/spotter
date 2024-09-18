@@ -210,7 +210,7 @@ class DeleteAuthorListing(generics.DestroyAPIView):
 
 class AddFavBookRecommendation(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
-    queryset = BookSingleByID.objects.all()
+    queryset = Book.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = AllBooksListings
 
@@ -238,7 +238,7 @@ class AddFavBookRecommendation(generics.ListAPIView):
 
 class RemoveFavBookRecommendation(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
-    queryset = BookSingleByID.objects.all()
+    queryset = Book.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = AllBooksListings
 
