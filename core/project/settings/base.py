@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'corsheaders',
     # app
     'core.users.apps.UsersConfig',
+    'core.books.apps.BooksConfig',
+    'core.works.apps.WorksConfig',
+    'core.api.apps.ApiConfig',
     # third party apps by position
     'django_filters',
     'simple_history',
