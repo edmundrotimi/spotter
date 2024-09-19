@@ -3,6 +3,6 @@
 }
 
 
-fieldset.module.wide {
+fieldset.module.wide, fieldset.module {
     display: block !important;
 }
