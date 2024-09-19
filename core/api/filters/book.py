@@ -11,7 +11,12 @@ class BookFilter(django_filters.FilterSet):
 
     class Meta:
         model = Book
-        fields = ['title']
+        exclude = [
+            'title', 'id', 'isbn', 'isbn13', 'language', 'average_rating', 'rating_dist', 'ratings_count',
+            'text_reviews_count', 'publication_date', 'original_publication_date', 'format', 'edition_information',
+            'publisher', 'num_pages', 'series_id', 'series_name', 'series_position', 'description', 'image_url',
+            'author_id', 'work_id', 'asin'
+        ]
 
     def filter_by_search_term(self, queryset, name, value):
         # Perform filtering based on the search
