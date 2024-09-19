@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 
 from core.works.models import Work
+
+User = get_user_model()
 
 
 class Author(models.Model):
@@ -28,7 +31,7 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    id = ShortUUIDField(length=30, max_length=40, alphabet='123876', primary_key=True)  # noqa: A003
+    id = ShortUUIDField(length=8, max_length=40, alphabet='123876', primary_key=True)  # noqa: A003
     title = models.CharField(max_length=300)
     author_id = models.ManyToManyField('Author')
     work_id = models.ManyToManyField(Work)
@@ -58,7 +61,8 @@ class Book(models.Model):
 
 class BookFav(models.Model):
     id = ShortUUIDField(length=30, max_length=40, alphabet='12ge76', primary_key=True)  # noqa: A003
-    book = models.ManyToManyField('Book')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey('Book', on_delete=models.CASCADE)
     fav_count = models.IntegerField(help_text='total number of fav for a book')
 
     def __str__(self):

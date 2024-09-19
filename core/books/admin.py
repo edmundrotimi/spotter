@@ -1,7 +1,7 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
-from .models import Author, Book
+from .models import Author, Book, BookFav
 
 
 class AuthorAdmin(ModelAdmin):
@@ -120,6 +120,21 @@ class BookAdmin(ModelAdmin):
     ]
 
 
+class FavAdmin(ModelAdmin):
+    list_display = ['id', 'user', 'book', 'fav_count']
+    list_display_links = ['id', 'user', 'book', 'fav_count']
+    search_fields = ['id', 'user', 'book', 'fav_count']
+    list_per_page = 100
+    show_full_result_count = True
+    actions_on_top = True
+    actions_on_bottom = True
+    save_as = True
+    save_as_continue = True
+    save_on_top = True
+    fields = ['id', 'user', 'book', 'fav_count']
+
+
 # register admin settings
 admin.site.register(Book, BookAdmin)
 admin.site.register(Author, AuthorAdmin)
+admin.site.register(BookFav, FavAdmin)
