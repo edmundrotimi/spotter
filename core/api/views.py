@@ -1,9 +1,10 @@
-from django.db.models import F
+from django.db.models import F, Q
 from rest_framework import generics, status
 from rest_framework.exceptions import NotFound
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -12,7 +13,6 @@ from core.api.filters.book import BookFilter
 from core.api.serializers.book import (
     AuthorListSerializer, BookListSerializer, CreateAuthorSerializer, CreateBookSerializer
 )
-from core.api.serializers.search.book_search import BookSearchSerializer
 from core.api.service import APIService
 from core.api.utils.recommendations import user_recommend_fav_books
 from core.books.models import Author, Book, BookFav
@@ -71,7 +71,6 @@ class CreateBook(generics.CreateAPIView):
 
 class UpdateBook(generics.UpdateAPIView):
     authentication_classes = [JWTAuthentication]
-    lookup_field = 'id'
     queryset = Book.objects.all()
     serializer_class = BookListSerializer
     permission_classes = [IsAuthenticated]
@@ -79,19 +78,29 @@ class UpdateBook(generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         # get id
-        instance_id = self.kwargs.get('id')
+        instance = self.get_object()
 
-        if Book.objects.filter(id=instance_id).exists():
-            return super().update(request, *args, **kwargs)
-        else:
-            # response
-            return Response({'detail': 'Record does not else'}, status=status.HTTP_400_BAD_REQUEST)
+        # pop data for many to many
+        work_data = request.pop('work_id', None)
+        author_data = request.pop('author_id', None)
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        # ensure popped data are not null
+        if author_data is not None:
+            instance.author_id(author_data)
+        if work_data is not None:
+            instance.work_ids.set(work_data)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class AllBooksListings(generics.UpdateAPIView):
+class AllBooksListings(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = Book.objects.all()
-    serializer_class = BookSearchSerializer
+    serializer_class = BookListSerializer
     permission_classes = [IsAuthenticated]
     filterset_class = BookFilter
 
@@ -115,7 +124,7 @@ class BookSingleByID(generics.RetrieveAPIView):
 class DeleteBookListing(generics.DestroyAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = Book.objects.all()
-    serializer_class = AllBooksListings
+    serializer_class = BookListSerializer
     permission_classes = [IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
@@ -124,8 +133,7 @@ class DeleteBookListing(generics.DestroyAPIView):
         status_code = status.HTTP_400_BAD_REQUEST
 
         if Book.objects.filter(id=self.kwargs['id']).exists():
-            instance = self.get_object(id=self.kwargs['id'])
-            self.perform_destroy(instance)
+            Book.objects.filter(id=self.kwargs['id']).delete()
             message['detail'] = 'Book deleted successfully'
             status_code = status.HTTP_200_OK
 
@@ -143,24 +151,34 @@ class CreateAuthor(generics.CreateAPIView):
 
 class UpdateAuthor(generics.UpdateAPIView):
     authentication_classes = [JWTAuthentication]
-    lookup_field = 'id'
     queryset = Author.objects.all()
     serializer_class = AuthorListSerializer
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def update(self, request, *args, **kwargs):
-        # get id
-        instance_id = self.kwargs.get('id')
+        # Get the instance to be updated
+        instance = self.get_object()
 
-        if Author.objects.filter(id=instance_id).exists():
-            return super().update(request, *args, **kwargs)
-        else:
-            # response
-            return Response({'detail': 'Record does not else'}, status=status.HTTP_400_BAD_REQUEST)
+        # Extract many to many field from the request data
+        work_data = request.data.pop('work_ids', None)
+        book_data = request.data.pop('book_ids', None)
+
+        # save record
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        # ensure popped data are not null
+        if book_data is not None:
+            instance.book_ids.set(book_data)
+        if work_data is not None:
+            instance.work_ids.set(work_data)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class AllAuthorListings(generics.UpdateAPIView):
+class AllAuthorListings(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = Author.objects.all()
     serializer_class = AuthorListSerializer
@@ -196,10 +214,8 @@ class DeleteAuthorListing(generics.DestroyAPIView):
 
         # check if author exist
         if Author.objects.filter(id=self.kwargs['id']).exists():
-            # get id
-            instance = self.get_object(id=self.kwargs['id'])
             # delete record
-            self.perform_destroy(instance)
+            Author.objects.filter(id=self.kwargs['id']).delete()
             # update response message
             message['detail'] = 'Record deleted successfully'
             status_code = status.HTTP_200_OK
@@ -208,61 +224,56 @@ class DeleteAuthorListing(generics.DestroyAPIView):
         return Response(message, status=status_code)
 
 
-class AddFavBookRecommendation(generics.ListAPIView):
+class AddFavBookRecommendation(APIView):
     authentication_classes = [JWTAuthentication]
     queryset = Book.objects.all()
     permission_classes = [IsAuthenticated]
-    serializer_class = AllBooksListings
+    serializer_class = BookListSerializer
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         # get id from request
         book_id = self.kwargs.get('id')
 
-        if Book.objects.filter(id=book_id).exists():
+        if Book.objects.filter(id=book_id):
             # get book
             get_book = Book.objects.get(id=book_id)
 
-            # create and update fields
-            BookFav.objects.update_or_create(
-                book=get_book,
-                defaults={'fav_count': F('count') + 1}  # update field if it exist or set on creation
-            )
+            # update field if it exist or set on creation
+            if BookFav.objects.filter(Q(book=get_book) & ~Q(user=self.request.user)).exists():
+                BookFav.objects.update(book=get_book, fav_count=F('fav_count') + 1)
+            elif not BookFav.objects.filter(Q(book=get_book)):
+                BookFav.objects.create(user=self.request.user, book=get_book, fav_count=1)
 
             # fav book does not exist
-            recommended_books = user_recommend_fav_books(top_n=5)
-            return recommended_books
+            recommended_books = user_recommend_fav_books(rec_num=5, title=get_book.title)
+
+            # Serialize the recommended books
+            serializer = BookListSerializer(recommended_books, many=True)
+
+            return Response({'recommendations': serializer.data}, status=status.HTTP_200_OK)
         else:
             # book does not exist
             return Response({'detail': 'Record does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RemoveFavBookRecommendation(generics.ListAPIView):
+class RemoveFavBookRecommendation(APIView):
     authentication_classes = [JWTAuthentication]
     queryset = Book.objects.all()
     permission_classes = [IsAuthenticated]
-    serializer_class = AllBooksListings
+    serializer_class = BookListSerializer
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         # Access 'id' from the request
         book_id = self.kwargs.get('id')
 
-        # check if the book exist
-        if Book.objects.filter(id=book_id).exists():
+        try:
             # get book
             get_book = Book.objects.get(id=book_id)
 
-            # check if the fav book record exist
-            if BookFav.objects.filter(book=get_book).exists():
-                # delete record
-                BookFav.objects.delete(book=get_book)
+            BookFav.objects.filter(book__id=get_book.id).delete()
 
-                # Get the recommended books
-                recommended_books = user_recommend_fav_books(rec_num=5)
-                # return recommendation as a list
-                return recommended_books
-            else:
-                # fav book does not exist
-                return Response({'detail': 'Record does not exist'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            # book does not exist
-            return Response({'detail': 'Record does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+            # fav book does not exist
+            return Response({'detail': 'Record removed from fav list'}, status=status.HTTP_200_OK)
+
+        except Exception:
+            return Response({'detail': 'Record is not in fav list'}, status=status.HTTP_404_NOT_FOUND)
