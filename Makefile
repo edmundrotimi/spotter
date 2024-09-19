@@ -43,9 +43,33 @@ superuser:
 	poetry run python -m core.manage createsuperuser
 
 
+.PHONY:book-fixtures
+book-fixtures:
+	poetry run python -m core.manage loaddata --app books books
+
+
+.PHONY:author-fixtures
+author-fixtures:
+	poetry run python -m core.manage loaddata --app books authors
+
+
+.PHONY:works-fixtures
+works-fixtures:
+	poetry run python -m core.manage loaddata --app works work
+
+
+.PHONY:series-fixtures
+series-fixtures:
+	poetry run python -m core.manage loaddata --app works series
+
+
 .PHONY:setup
 setup: install migrations migrate install-pre-commit ;
 
 
 .PHONY:push-update
 push-update: migrations migrate collectstatic ;
+
+
+.PHONY:load-fixtures
+load-fixtures: works-fixtures series-fixtures author-fixtures  book-fixtures ;
